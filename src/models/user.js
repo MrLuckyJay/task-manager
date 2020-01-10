@@ -61,18 +61,17 @@ const userSchema = new mongoose.Schema({
 
 userSchema.statics.findByCredentials = async (email,password)=>{
     const user = await User.findOne({email})
-
+    const isMatch = bcrypt.compare(password, user.password)
+    
     if(!user){
         throw new Error('Unable to login')
-    }
-
-    const isMatch = bcrypt.compare(password, user.password)
-
-    if(!isMatch){
+    }else if(!isMatch){
         throw new Error('Unable to login')
+    }else {
+        return user
     }
 
-    return user
+    
 }
 
 //generate jwt
