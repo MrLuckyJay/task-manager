@@ -12,7 +12,7 @@ const auth = require('../middleWare/auth')
 
 //create single user route
 
-app.post('/users',async (req, res) => {
+app.post('/users/signup',async (req, res) => {
     
     const user = new User(req.body)
     
